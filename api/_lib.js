@@ -11,6 +11,9 @@
    Aucune donnée n'est stockée : chaque envoi part uniquement par e-mail.
    ========================================================= */
 
+// Lit une variable en acceptant aussi son nom en minuscules (saisie Vercel)
+const env = (name) => process.env[name] || process.env[name.toLowerCase()] || '';
+
 const EMAIL_RE = /^[^\s@<>()[\]\\,;:"]+@[^\s@<>()[\]\\,;:"]+\.[a-z]{2,}$/i;
 const PHONE_RE = /^[+()\d\s.-]{6,25}$/;
 const URL_RE = /^https?:\/\/[^\s<>"]+\.[^\s<>"]+$/i;
@@ -82,12 +85,12 @@ async function sendEmail({ subject, html, text, replyTo }) {
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+      Authorization: `Bearer ${env('RESEND_API_KEY')}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      from: process.env.MAIL_FROM || "SI T'ES SHOW <onboarding@resend.dev>",
-      to: process.env.CONTACT_TO.split(',').map((s) => s.trim()).filter(Boolean),
+      from: env('MAIL_FROM') || "SI T'ES SHOW <onboarding@resend.dev>",
+      to: env('CONTACT_TO').split(',').map((s) => s.trim()).filter(Boolean),
       reply_to: replyTo,
       subject,
       html,
@@ -134,7 +137,7 @@ function createHandler(schema) {
       return res.status(422).json({ message: 'Certains champs sont à corriger.', errors });
     }
 
-    if (!process.env.RESEND_API_KEY || !process.env.CONTACT_TO) {
+    if (!env('RESEND_API_KEY') || !env('CONTACT_TO')) {
       console.error('[formulaire] RESEND_API_KEY ou CONTACT_TO manquant');
       return res.status(503).json({ message: "Le formulaire n'est pas encore activé. Contactez-nous en attendant via notre page Facebook." });
     }
