@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inscription aux Ateliers du rire — SI T'ES SHOW</title>
+  <meta name="description" content="Inscrivez-vous aux Ateliers du rire 2027 de SI T'ES SHOW à Saint-Waast, Dutemple, Faubourg de Lille et Bruay-sur-Escaut.">
+  <meta name="theme-color" content="#f5efe4">
+  <link rel="canonical" href="https://maquette-si-t-es-show.vercel.app/inscription-ateliers.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="SI T'ES SHOW">
+  <meta property="og:title" content="Inscription aux Ateliers du rire — SI T'ES SHOW">
+  <meta property="og:description" content="Inscrivez-vous aux Ateliers du rire 2027 de SI T'ES SHOW à Saint-Waast, Dutemple, Faubourg de Lille et Bruay-sur-Escaut.">
+  <meta property="og:url" content="https://maquette-si-t-es-show.vercel.app/inscription-ateliers.html">
+  <meta property="og:image" content="https://maquette-si-t-es-show.vercel.app/assets/img/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="brush" viewBox="0 0 320 24">
+      <path fill="currentColor" d="M3 15c38-6 92-11 150-11 54 0 110 3 164 8 2 0 3 2 1 3-30 1-60 2-96 3-28 1-52 3-82 4-36 2-76 2-112 1-14 0-26-1-26-4 0-2 1-3 1-4Zm22 6c46-2 98-2 150-3 30 0 66 0 96-2-28 3-70 5-110 6-46 1-92 1-136-1Z"/>
+    </symbol>
+  </svg>
+
+  <header class="site-header site-header--page">
+    <div class="header-surface" aria-hidden="true"></div>
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="SI T'ES SHOW, page d'accueil">
+        <img src="assets/img/logo.webp" width="600" height="265" alt="SI T'ES SHOW — Accompagnements & développements culturels">
+      </a>
+      <a class="back-link" href="index.html#evenements"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Retour au site</a>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <section class="wrap page-hero" aria-labelledby="page-title">
+      <div>
+        <span class="red-rule" aria-hidden="true"></span>
+        <h1 id="page-title">Je participe aux Ateliers du rire</h1>
+        <p>Les ateliers 2027 ont lieu à Saint-Waast, Dutemple, Faubourg de Lille et Bruay-sur-Escaut. Remplissez ce formulaire : l'association vous recontacte par e-mail avec les dates et les informations pratiques.</p>
+      </div>
+      <img class="poster-thumb" src="assets/img/atelier-du-rire.webp" width="609" height="861" alt="Affiche des Ateliers du rire 2027">
+    </section>
+    <section class="wrap page-body" aria-label="Formulaire d'inscription">
+        <form class="form" data-form="inscription" action="/api/inscription" method="post" novalidate>
+            <div class="form-fields">
+              <h2 class="form-section-title">Vos coordonnées</h2>
+              <div class="form-row">
+                <div class="field">
+                    <label for="i-prenom">Prénom</label>
+                    <input id="i-prenom" name="prenom" type="text" autocomplete="given-name" required maxlength="60" aria-describedby="i-prenom-err">
+                    <p class="field-error" id="i-prenom-err"></p>
+                  </div>
+                <div class="field">
+                    <label for="i-nom">Nom</label>
+                    <input id="i-nom" name="nom" type="text" autocomplete="family-name" required maxlength="60" aria-describedby="i-nom-err">
+                    <p class="field-error" id="i-nom-err"></p>
+                  </div>
+              </div>
+              <div class="form-row">
+                <div class="field">
+                    <label for="i-email">Adresse e-mail</label>
+                    <input id="i-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="160" aria-describedby="i-email-err">
+                    <p class="field-error" id="i-email-err"></p>
+                  </div>
+                <div class="field">
+                    <label for="i-tel">Téléphone <span class="optional">(facultatif)</span></label>
+                    <input id="i-tel" name="telephone" type="tel" autocomplete="tel" inputmode="tel" maxlength="25" aria-describedby="i-tel-err">
+                    <p class="field-error" id="i-tel-err"></p>
+                  </div>
+              </div>
+              <h2 class="form-section-title">Votre atelier</h2>
+              <div class="form-row">
+                <div class="field">
+                    <label for="i-atelier">Atelier souhaité</label>
+                    <select id="i-atelier" name="atelier" required aria-describedby="i-atelier-err">
+                      <option value="">Choisir un quartier</option>
+                      <option>Saint-Waast</option>
+                      <option>Dutemple</option>
+                      <option>Faubourg de Lille</option>
+                      <option>Bruay-sur-Escaut</option>
+                      <option>Je ne sais pas encore</option>
+                    </select>
+                    <p class="field-error" id="i-atelier-err"></p>
+                  </div>
+                <div class="field">
+                    <label for="i-age">Tranche d'âge</label>
+                    <select id="i-age" name="age" required aria-describedby="i-age-err">
+                      <option value="">Choisir une tranche</option>
+                      <option>Moins de 18 ans</option>
+                      <option>18 à 25 ans</option>
+                      <option>26 à 59 ans</option>
+                      <option>60 ans et plus</option>
+                    </select>
+                    <p class="field-error" id="i-age-err"></p>
+                  </div>
+              </div>
+              <div class="field">
+                <label for="i-resp">Nom du responsable légal <span class="optional">(facultatif)</span></label>
+                <p class="field-hint" id="i-resp-hint">Obligatoire si le participant a moins de 18 ans.</p>
+                <input id="i-resp" name="responsable" type="text" maxlength="100" data-required-when="age=Moins de 18 ans" aria-describedby="i-resp-hint i-resp-err">
+                <p class="field-error" id="i-resp-err"></p>
+              </div>
+              <div class="field">
+                <label for="i-message">Un mot pour l’équipe <span class="optional">(facultatif)</span></label>
+                <p class="field-hint" id="i-message-hint">Vos attentes, vos disponibilités, une question…</p>
+                <textarea id="i-message" name="message" maxlength="1500" aria-describedby="i-message-hint i-message-err"></textarea>
+                <p class="field-error" id="i-message-err"></p>
+              </div>
+              <div class="hp" aria-hidden="true">
+                <label for="i-site">Ne pas remplir ce champ</label>
+                <input id="i-site" name="site_web" type="text" tabindex="-1" autocomplete="off">
+              </div>
+              <div class="field">
+                <label class="choice" for="i-rgpd">
+                  <input id="i-rgpd" name="consentement" type="checkbox" required aria-describedby="i-rgpd-err">
+                  <span>J'accepte que SI T'ES SHOW utilise ces informations pour traiter ma demande.</span>
+                </label>
+                <p class="field-error" id="i-rgpd-err"></p>
+              </div>
+              <p class="form-legal">Vos données sont transmises uniquement à l'association par e-mail. Elles ne sont ni publiées ni revendues. <a href="mentions-legales.html#confidentialite">Politique de confidentialité</a></p>
+              <button class="button" type="submit">Envoyer mon inscription <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+            </div>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <svg class="footer-brush footer-brush--a" viewBox="0 0 320 24" aria-hidden="true" focusable="false"><use href="#brush"/></svg>
+    <svg class="footer-brush footer-brush--b" viewBox="0 0 320 24" aria-hidden="true" focusable="false"><use href="#brush"/></svg>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/img/logo-clair.webp" width="600" height="265" loading="lazy" decoding="async" alt="SI T'ES SHOW">
+          <p>Association d'accompagnements et de développements culturels, à Valenciennes depuis 2006.</p>
+        </div>
+        <div>
+          <p class="footer-title">Le site</p>
+          <ul class="footer-links">
+            <li><a href="index.html#association">L'association</a></li>
+            <li><a href="index.html#evenements">Événements</a></li>
+            <li><a href="index.html#partenaires">Partenaires</a></li>
+            <li><a href="index.html#rejoindre">Rejoindre l'aventure</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-title">Participer</p>
+          <ul class="footer-links">
+            <li><a href="inscription-ateliers.html">Ateliers du rire</a></li>
+            <li><a href="candidature-tremplin.html">Tremplin d'humour</a></li>
+            <li><a data-config-href="billetterieJojoBernard" href="index.html#evenements" target="_blank" rel="noopener">Billetterie<span class="sr-only"> (nouvel onglet)</span></a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-title">Nous suivre</p>
+          <ul class="footer-links">
+            <li><a href="index.html#contact"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Nous écrire</a></li>
+            <li><a data-config-href="facebook" href="https://www.facebook.com/share/1EKz69pP5z/?mibextid=wwXIfr" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H7v4h3v7h4v-7h3l1-4h-4V8Z"/></svg>Facebook<span class="sr-only"> (nouvel onglet)</span></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span data-year>2026</span> SI T'ES SHOW · Valenciennes</p>
+        <nav aria-label="Informations légales">
+          <a href="mentions-legales.html">Mentions légales</a>
+          <a href="mentions-legales.html#confidentialite">Confidentialité</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="script.js" defer></script>
+</body>
+</html>

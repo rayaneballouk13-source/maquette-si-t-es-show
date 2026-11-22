@@ -1,0 +1,8 @@
+# Outils locaux (skills Claude Code, Vercel CLI)
+.agents/
+.claude/
+skills-lock.json
+.vercel/
+.env*
+node_modules/
+.playwright-mcp/

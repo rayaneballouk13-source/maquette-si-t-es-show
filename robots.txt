@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://maquette-si-t-es-show.vercel.app/sitemap.xml

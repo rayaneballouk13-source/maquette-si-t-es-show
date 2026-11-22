@@ -1,0 +1,6 @@
+images/
+README.md
+.agents/
+.claude/
+skills-lock.json
+.playwright-mcp/

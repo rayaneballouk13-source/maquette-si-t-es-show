@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Candidature au Tremplin d'humour Les Oscaars du rire — SI T'ES SHOW</title>
+  <meta name="description" content="Humoristes amateurs et amatrices des Hauts-de-France : candidatez au Tremplin d'humour Les Oscaars du rire organisé par SI T'ES SHOW.">
+  <meta name="theme-color" content="#f5efe4">
+  <link rel="canonical" href="https://maquette-si-t-es-show.vercel.app/candidature-tremplin.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="SI T'ES SHOW">
+  <meta property="og:title" content="Candidature au Tremplin d'humour Les Oscaars du rire — SI T'ES SHOW">
+  <meta property="og:description" content="Humoristes amateurs et amatrices des Hauts-de-France : candidatez au Tremplin d'humour Les Oscaars du rire organisé par SI T'ES SHOW.">
+  <meta property="og:url" content="https://maquette-si-t-es-show.vercel.app/candidature-tremplin.html">
+  <meta property="og:image" content="https://maquette-si-t-es-show.vercel.app/assets/img/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="brush" viewBox="0 0 320 24">
+      <path fill="currentColor" d="M3 15c38-6 92-11 150-11 54 0 110 3 164 8 2 0 3 2 1 3-30 1-60 2-96 3-28 1-52 3-82 4-36 2-76 2-112 1-14 0-26-1-26-4 0-2 1-3 1-4Zm22 6c46-2 98-2 150-3 30 0 66 0 96-2-28 3-70 5-110 6-46 1-92 1-136-1Z"/>
+    </symbol>
+  </svg>
+
+  <header class="site-header site-header--page">
+    <div class="header-surface" aria-hidden="true"></div>
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="SI T'ES SHOW, page d'accueil">
+        <img src="assets/img/logo.webp" width="600" height="265" alt="SI T'ES SHOW — Accompagnements & développements culturels">
+      </a>
+      <a class="back-link" href="index.html#evenements"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Retour au site</a>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <section class="wrap page-hero" aria-labelledby="page-title">
+      <div>
+        <span class="red-rule" aria-hidden="true"></span>
+        <h1 id="page-title">Je candidate au Tremplin d'humour</h1>
+        <p>Les Oscaars du rire s'adressent aux humoristes amateurs et amatrices des Hauts-de-France. Présentez-vous : l'association étudie chaque candidature et vous répond par e-mail.</p>
+      </div>
+      <img class="poster-thumb" src="assets/img/tremplin-humour.webp" width="720" height="1019" alt="Affiche du Tremplin d'humour Les Oscaars du rire">
+    </section>
+    <section class="wrap page-body" aria-label="Formulaire de candidature">
+        <form class="form" data-form="candidature" action="/api/candidature" method="post" novalidate>
+            <div class="form-fields">
+              <h2 class="form-section-title">Vous</h2>
+              <div class="form-row">
+                <div class="field">
+                    <label for="t-prenom">Prénom</label>
+                    <input id="t-prenom" name="prenom" type="text" autocomplete="given-name" required maxlength="60" aria-describedby="t-prenom-err">
+                    <p class="field-error" id="t-prenom-err"></p>
+                  </div>
+                <div class="field">
+                    <label for="t-nom">Nom</label>
+                    <input id="t-nom" name="nom" type="text" autocomplete="family-name" required maxlength="60" aria-describedby="t-nom-err">
+                    <p class="field-error" id="t-nom-err"></p>
+                  </div>
+              </div>
+              <div class="field">
+                <label for="t-scene">Nom de scène <span class="optional">(facultatif)</span></label>
+                <input id="t-scene" name="nom_scene" type="text" maxlength="80" aria-describedby="t-scene-err">
+                <p class="field-error" id="t-scene-err"></p>
+              </div>
+              <div class="form-row">
+                <div class="field">
+                    <label for="t-email">Adresse e-mail</label>
+                    <input id="t-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="160" aria-describedby="t-email-err">
+                    <p class="field-error" id="t-email-err"></p>
+                  </div>
+                <div class="field">
+                    <label for="t-tel">Téléphone</label>
+                    <input id="t-tel" name="telephone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="25" aria-describedby="t-tel-err">
+                    <p class="field-error" id="t-tel-err"></p>
+                  </div>
+              </div>
+              <div class="field">
+                <label for="t-ville">Ville de résidence</label>
+                <input id="t-ville" name="ville" type="text" autocomplete="address-level2" required maxlength="80" aria-describedby="t-ville-err">
+                <p class="field-error" id="t-ville-err"></p>
+              </div>
+              <h2 class="form-section-title">Votre humour</h2>
+              <div class="field">
+                <label for="t-exp">Votre expérience de la scène</label>
+                <select id="t-exp" name="experience" required aria-describedby="t-exp-err">
+                  <option value="">Choisir</option>
+                  <option>Jamais encore sur scène</option>
+                  <option>Quelques passages sur scène</option>
+                  <option>Je joue régulièrement</option>
+                </select>
+                <p class="field-error" id="t-exp-err"></p>
+              </div>
+              <div class="field">
+                <label for="t-pres">Présentez-vous et votre univers</label>
+                <p class="field-hint" id="t-pres-hint">Votre style, vos thèmes, ce qui vous fait monter sur scène.</p>
+                <textarea id="t-pres" name="presentation" required minlength="30" maxlength="2000" aria-describedby="t-pres-hint t-pres-err"></textarea>
+                <p class="field-error" id="t-pres-err"></p>
+              </div>
+              <div class="field">
+                <label for="t-video">Lien vers une vidéo de vous sur scène <span class="optional">(facultatif)</span></label>
+                <p class="field-hint" id="t-video-hint">YouTube, Instagram, Facebook, Drive… Commence par https://</p>
+                <input id="t-video" name="video" type="url" inputmode="url" maxlength="300" aria-describedby="t-video-hint t-video-err">
+                <p class="field-error" id="t-video-err"></p>
+              </div>
+              <h2 class="form-section-title">Conditions</h2>
+              <div class="field">
+                <label class="choice" for="t-amateur">
+                  <input id="t-amateur" name="amateur" type="checkbox" required aria-describedby="t-amateur-err">
+                  <span>Je pratique l'humour en amateur ou en amatrice.</span>
+                </label>
+                <p class="field-error" id="t-amateur-err"></p>
+              </div>
+              <div class="field">
+                <label class="choice" for="t-region">
+                  <input id="t-region" name="region" type="checkbox" required aria-describedby="t-region-err">
+                  <span>Je réside dans les Hauts-de-France.</span>
+                </label>
+                <p class="field-error" id="t-region-err"></p>
+              </div>
+              <div class="hp" aria-hidden="true">
+                <label for="t-site">Ne pas remplir ce champ</label>
+                <input id="t-site" name="site_web" type="text" tabindex="-1" autocomplete="off">
+              </div>
+              <div class="field">
+                <label class="choice" for="t-rgpd">
+                  <input id="t-rgpd" name="consentement" type="checkbox" required aria-describedby="t-rgpd-err">
+                  <span>J'accepte que SI T'ES SHOW utilise ces informations pour traiter ma demande.</span>
+                </label>
+                <p class="field-error" id="t-rgpd-err"></p>
+              </div>
+              <p class="form-legal">Vos données sont transmises uniquement à l'association par e-mail. Elles ne sont ni publiées ni revendues. <a href="mentions-legales.html#confidentialite">Politique de confidentialité</a></p>
+              <button class="button" type="submit">Envoyer ma candidature <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+            </div>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <svg class="footer-brush footer-brush--a" viewBox="0 0 320 24" aria-hidden="true" focusable="false"><use href="#brush"/></svg>
+    <svg class="footer-brush footer-brush--b" viewBox="0 0 320 24" aria-hidden="true" focusable="false"><use href="#brush"/></svg>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/img/logo-clair.webp" width="600" height="265" loading="lazy" decoding="async" alt="SI T'ES SHOW">
+          <p>Association d'accompagnements et de développements culturels, à Valenciennes depuis 2006.</p>
+        </div>
+        <div>
+          <p class="footer-title">Le site</p>
+          <ul class="footer-links">
+            <li><a href="index.html#association">L'association</a></li>
+            <li><a href="index.html#evenements">Événements</a></li>
+            <li><a href="index.html#partenaires">Partenaires</a></li>
+            <li><a href="index.html#rejoindre">Rejoindre l'aventure</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-title">Participer</p>
+          <ul class="footer-links">
+            <li><a href="inscription-ateliers.html">Ateliers du rire</a></li>
+            <li><a href="candidature-tremplin.html">Tremplin d'humour</a></li>
+            <li><a data-config-href="billetterieJojoBernard" href="index.html#evenements" target="_blank" rel="noopener">Billetterie<span class="sr-only"> (nouvel onglet)</span></a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-title">Nous suivre</p>
+          <ul class="footer-links">
+            <li><a href="index.html#contact"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Nous écrire</a></li>
+            <li><a data-config-href="facebook" href="https://www.facebook.com/share/1EKz69pP5z/?mibextid=wwXIfr" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H7v4h3v7h4v-7h3l1-4h-4V8Z"/></svg>Facebook<span class="sr-only"> (nouvel onglet)</span></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span data-year>2026</span> SI T'ES SHOW · Valenciennes</p>
+        <nav aria-label="Informations légales">
+          <a href="mentions-legales.html">Mentions légales</a>
+          <a href="mentions-legales.html#confidentialite">Confidentialité</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
