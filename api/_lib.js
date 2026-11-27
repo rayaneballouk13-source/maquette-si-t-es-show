@@ -158,4 +158,4 @@ function createHandler(schema) {
   };
 }
 
-module.exports = { createHandler, validate };
+module.exports = { createHandler, validate, rateLimited, escapeHtml, renderEmail, sendEmail, env };

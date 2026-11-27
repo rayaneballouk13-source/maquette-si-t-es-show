@@ -35,6 +35,21 @@ Tant que la clé n'est pas configurée, les formulaires affichent un message inv
 
 Protection anti-spam : champ piège invisible, délai minimal de remplissage, limite d'envois par adresse IP, validation complète côté serveur.
 
+## Réservations de la Navette du rire
+
+Bouton « Je réserve ma place » sur l'affiche → fenêtre de réservation (1 à 10 places, places restantes affichées, blocage automatique quand c'est complet).
+Les réservations sont enregistrées dans une base **Upstash Redis** ; le compteur de places est atomique, donc aucune surréservation possible, même avec des envois simultanés.
+
+Activation (une seule fois) :
+1. Vercel → projet → **Storage** → **Create Database** → **Upstash for Redis** (région Europe, offre gratuite) → **Connect** au projet. Les variables `KV_REST_API_URL` et `KV_REST_API_TOKEN` sont ajoutées automatiquement.
+2. Vercel → **Settings → Environment Variables** : ajouter `NAVETTE_ADMIN_PASSWORD` (mot de passe de l'espace association).
+3. Redéployer.
+
+Espace association : `/admin-navette.html` (liste, places par point de ramassage, export CSV, annulation, **changement de capacité**, effacement après l'événement).
+Capacité par défaut : 55 places (`api/_navette.js`, ou variable `NAVETTE_CAPACITE`). Une capacité réglée dans l'espace association est prioritaire.
+
+Tester en local avec la vraie base : `vercel env pull .env.local`, puis relancer `lancer-site-local.bat`.
+
 ## Mettre à jour les contenus (`config.js`)
 
 - **Billetterie** : `liens.billetterieJojoBernard`. Laisser `''` désactive le bouton.

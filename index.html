@@ -63,7 +63,6 @@
 
       <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
         <div class="nav-links">
-          <a href="#association">L'association</a>
           <a href="#evenements">Événements</a>
           <a href="#partenaires">Partenaires</a>
         </div>
@@ -119,14 +118,15 @@
           </article>
 
           <article class="event-card">
-            <a class="poster-link" href="candidature-tremplin.html" tabindex="-1" aria-hidden="true">
+            <a class="poster-link" href="https://docs.google.com/forms/d/e/1FAIpQLScMeuX3CiegKZkaHcM3kTUaI3wI5D8a-_Fd_2i34Ym2ZDgTJg/viewform?usp=dialog" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
               <img src="assets/img/tremplin-humour.webp" width="720" height="1019" loading="lazy" decoding="async" alt="">
             </a>
             <div class="event-body">
               <h3>Tremplin d'humour — Les Oscaars du rire</h3>
               <p>Pour les humoristes amateurs et amatrices des Hauts-de-France.</p>
-              <a class="button button-block" href="candidature-tremplin.html">
+              <a class="button button-block" href="https://docs.google.com/forms/d/e/1FAIpQLScMeuX3CiegKZkaHcM3kTUaI3wI5D8a-_Fd_2i34Ym2ZDgTJg/viewform?usp=dialog" target="_blank" rel="noopener">
                 Je candidate
+                <span class="sr-only">(formulaire Google, nouvel onglet)</span>
                 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </a>
             </div>
@@ -146,42 +146,109 @@
               </a>
             </div>
           </article>
+
+          <article class="event-card">
+            <a class="poster-link" href="#evenements" data-open-navette tabindex="-1" aria-hidden="true">
+              <img src="assets/img/navette-du-rire.webp" width="720" height="1019" loading="lazy" decoding="async" alt="">
+            </a>
+            <div class="event-body">
+              <h3>La Navette du rire</h3>
+              <p>Spectacle d'humour gratuit à l'auditorium Saint-Nicolas, avec ramassage en bus depuis Saint-Waast, Dutemple et Faubourg de Lille.</p>
+              <p class="seats-line" data-seats-line hidden></p>
+              <button class="button button-block" type="button" data-open-navette aria-haspopup="dialog">
+                <span data-navette-label>Je réserve ma place</span>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- L'ASSOCIATION -->
-    <section class="section about" id="association" aria-labelledby="about-title">
-      <div class="vinyl" aria-hidden="true"></div>
-      <div class="about-inner wrap">
-        <div class="about-brand">
-          <img src="assets/img/logo.webp" width="600" height="265" loading="lazy" decoding="async" alt="Logo SI T'ES SHOW">
-          <svg class="brush" aria-hidden="true" focusable="false"><use href="#brush"/></svg>
+    <!-- RÉSERVATION DE LA NAVETTE DU RIRE (ouverte par les boutons data-open-navette) -->
+    <dialog class="booking" id="navette-dialog" aria-labelledby="navette-title">
+      <div class="booking-head">
+        <img src="assets/img/navette-du-rire.webp" width="720" height="1019" alt="" loading="lazy" decoding="async">
+        <div>
+          <h2 id="navette-title">Je réserve ma place</h2>
+          <p>La Navette du rire : spectacle d'humour gratuit, ramassage en bus.</p>
         </div>
-        <div class="about-copy">
-          <span class="red-rule" aria-hidden="true"></span>
-          <h2 id="about-title" class="reveal">L'association</h2>
-          <p>Depuis 2006, SI T'ES SHOW s'engage pour rendre la culture accessible à tous, à travers des événements variés et des actions culturelles dynamiques sur le territoire de Valenciennes et ses environs.</p>
-
-          <div class="about-more" id="about-more" hidden>
-            <h3>Ce que nous faisons</h3>
-            <ul>
-              <li><strong>Des ateliers dans les quartiers.</strong> Les Ateliers du rire se tiennent à Saint-Waast, Dutemple, Faubourg de Lille et Bruay-sur-Escaut.</li>
-              <li><strong>Une scène pour les talents de la région.</strong> Le Tremplin d'humour Les Oscaars du rire est ouvert aux humoristes amateurs et amatrices des Hauts-de-France.</li>
-              <li><strong>Des spectacles pour tous.</strong> L'association accueille des artistes, comme Jojo Bernard avec « Tout le monde il est beauf ».</li>
-              <li><strong>Un travail avec le territoire.</strong> Ces projets sont menés avec nos partenaires, dont la Ville de Valenciennes et Valenciennes Métropole.</li>
-            </ul>
-          </div>
-
-          <div class="about-actions">
-            <button class="button button-outline" type="button" aria-expanded="false" aria-controls="about-more" data-toggle-about>
-              <span data-label>En savoir plus</span>
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </button>
-          </div>
-        </div>
+        <button class="booking-close" type="button" data-close-navette aria-label="Fermer la réservation">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
       </div>
-    </section>
+
+      <div class="seat-meter" data-seat-meter hidden>
+        <p><strong data-seats-left>–</strong> <span data-seats-text>places disponibles</span> sur <span data-seats-total>–</span></p>
+        <div class="seat-bar" aria-hidden="true"><span data-seats-bar></span></div>
+      </div>
+
+      <form class="form booking-form" data-booking action="/api/navette" method="post" novalidate>
+        <div class="form-fields">
+          <div class="field">
+            <label for="n-places">Nombre de places</label>
+            <div class="stepper">
+              <button type="button" data-step="-1" aria-label="Une place de moins">−</button>
+              <input id="n-places" name="places" type="number" inputmode="numeric" min="1" max="10" value="1" required aria-describedby="n-places-hint n-places-err">
+              <button type="button" data-step="1" aria-label="Une place de plus">+</button>
+            </div>
+            <p class="field-hint" id="n-places-hint">De 1 à <span data-max-places>10</span> places par réservation.</p>
+            <p class="field-error" id="n-places-err"></p>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="n-prenom">Prénom</label>
+              <input id="n-prenom" name="prenom" type="text" autocomplete="given-name" required maxlength="60" aria-describedby="n-prenom-err">
+              <p class="field-error" id="n-prenom-err"></p>
+            </div>
+            <div class="field">
+              <label for="n-nom">Nom</label>
+              <input id="n-nom" name="nom" type="text" autocomplete="family-name" required maxlength="60" aria-describedby="n-nom-err">
+              <p class="field-error" id="n-nom-err"></p>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="n-email">Adresse e-mail</label>
+              <input id="n-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="160" aria-describedby="n-email-err">
+              <p class="field-error" id="n-email-err"></p>
+            </div>
+            <div class="field">
+              <label for="n-tel">Téléphone</label>
+              <input id="n-tel" name="telephone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="25" pattern="[+()0-9 .\-]{6,25}" data-pattern-message="Entrez un numéro de téléphone valide, par exemple 06 12 34 56 78." aria-describedby="n-tel-err">
+              <p class="field-error" id="n-tel-err"></p>
+            </div>
+          </div>
+          <div class="field">
+            <label for="n-arret">Point de ramassage</label>
+            <select id="n-arret" name="arret" required aria-describedby="n-arret-err">
+              <option value="">Choisir un quartier</option>
+              <option>Saint-Waast</option>
+              <option>Dutemple</option>
+              <option>Faubourg de Lille</option>
+            </select>
+            <p class="field-error" id="n-arret-err"></p>
+          </div>
+          <div class="hp" aria-hidden="true">
+            <label for="n-site">Ne pas remplir ce champ</label>
+            <input id="n-site" name="site_web" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <div class="field">
+            <label class="choice" for="n-rgpd">
+              <input id="n-rgpd" name="consentement" type="checkbox" required aria-describedby="n-rgpd-err">
+              <span>J'accepte que SI T'ES SHOW enregistre ces informations pour organiser la navette.</span>
+            </label>
+            <p class="field-error" id="n-rgpd-err"></p>
+          </div>
+          <p class="form-legal">Vos données servent uniquement à organiser la navette et sont effacées après l'événement. <a href="mentions-legales.html#confidentialite">Politique de confidentialité</a></p>
+          <button class="button" type="submit">
+            Confirmer la réservation
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </dialog>
 
     <!-- NOS ÉVÉNEMENTS EN IMAGES (affichée quand config.js contient des photos) -->
     <section class="section gallery" id="galerie" aria-labelledby="gallery-title" hidden>
@@ -212,9 +279,13 @@
           <span class="red-rule" aria-hidden="true"></span>
           <h2 id="partners-title">Nos partenaires</h2>
         </div>
-        <ul class="partner-grid">
-          <li><img src="assets/img/partenaires/ville-de-valenciennes.webp" width="520" height="126" loading="lazy" decoding="async" alt="Ville de Valenciennes"></li>
+      </div>
+      <!-- Carrousel : la liste est dupliquée par script.js pour un défilement continu -->
+      <div class="partner-marquee" data-marquee>
+        <ul class="partner-track">
           <li><img src="assets/img/partenaires/valenciennes-metropole.webp" width="520" height="165" loading="lazy" decoding="async" alt="Valenciennes Métropole"></li>
+          <li><img src="assets/img/partenaires/departement-du-nord.webp" width="520" height="207" loading="lazy" decoding="async" alt="Département du Nord"></li>
+          <li><img src="assets/img/partenaires/ville-de-valenciennes.webp" width="520" height="126" loading="lazy" decoding="async" alt="Ville de Valenciennes"></li>
           <li><img src="assets/img/partenaires/sigh.webp" width="360" height="332" loading="lazy" decoding="async" alt="SIGH — Société immobilière Grand Hainaut"></li>
           <li><img src="assets/img/partenaires/agfaih.webp" width="551" height="560" loading="lazy" decoding="async" alt="AGFAIH — Association de gestion du fonds d'aide aux initiatives habitants"></li>
           <li><img src="assets/img/partenaires/flac.webp" width="264" height="320" loading="lazy" decoding="async" alt="FLAC"></li>
@@ -338,7 +409,6 @@
         <div>
           <p class="footer-title">Le site</p>
           <ul class="footer-links">
-            <li><a href="#association">L'association</a></li>
             <li><a href="#evenements">Événements</a></li>
             <li><a href="#partenaires">Partenaires</a></li>
             <li><a href="#rejoindre">Rejoindre l'aventure</a></li>
@@ -348,7 +418,7 @@
           <p class="footer-title">Participer</p>
           <ul class="footer-links">
             <li><a href="inscription-ateliers.html">Ateliers du rire</a></li>
-            <li><a href="candidature-tremplin.html">Tremplin d'humour</a></li>
+            <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScMeuX3CiegKZkaHcM3kTUaI3wI5D8a-_Fd_2i34Ym2ZDgTJg/viewform?usp=dialog" target="_blank" rel="noopener">Tremplin d'humour<span class="sr-only"> (formulaire Google, nouvel onglet)</span></a></li>
             <li><a data-config-href="billetterieJojoBernard" href="#evenements" target="_blank" rel="noopener">Billetterie<span class="sr-only"> (nouvel onglet)</span></a></li>
           </ul>
         </div>

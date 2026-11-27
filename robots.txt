@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /admin-navette.html
+Disallow: /api/
 
 Sitemap: https://maquette-si-t-es-show.vercel.app/sitemap.xml

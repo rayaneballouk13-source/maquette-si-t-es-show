@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Réservations Navette — Espace association — SI T'ES SHOW</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f5efe4">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="brush" viewBox="0 0 320 24">
+      <path fill="currentColor" d="M3 15c38-6 92-11 150-11 54 0 110 3 164 8 2 0 3 2 1 3-30 1-60 2-96 3-28 1-52 3-82 4-36 2-76 2-112 1-14 0-26-1-26-4 0-2 1-3 1-4Zm22 6c46-2 98-2 150-3 30 0 66 0 96-2-28 3-70 5-110 6-46 1-92 1-136-1Z"/>
+    </symbol>
+  </svg>
+
+  <header class="site-header site-header--page">
+    <div class="header-surface" aria-hidden="true"></div>
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="SI T'ES SHOW, page d'accueil">
+        <img src="assets/img/logo.webp" width="600" height="265" alt="SI T'ES SHOW — Accompagnements & développements culturels">
+      </a>
+      <a class="back-link" href="index.html#evenements"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Retour au site</a>
+    </div>
+  </header>
+
+
+  <main id="contenu" class="admin">
+    <div class="wrap admin-wrap">
+      <h1>Réservations de la Navette du rire</h1>
+      <p class="admin-intro">Espace réservé à l'association : consultez les réservations et réglez la capacité du bus.</p>
+
+      <!-- Connexion -->
+      <form class="form admin-login" data-admin-login novalidate>
+        <div class="field">
+          <label for="a-pass">Mot de passe de l'association</label>
+          <input id="a-pass" name="password" type="password" autocomplete="current-password" required aria-describedby="a-pass-err">
+          <p class="field-error" id="a-pass-err"></p>
+        </div>
+        <button class="button" type="submit">Se connecter</button>
+      </form>
+
+      <div class="admin-panel" data-admin-panel hidden>
+        <p class="form-status" data-admin-status role="status" aria-live="polite"></p>
+
+        <ul class="admin-stats">
+          <li><span class="stat-value" data-a="reservees">–</span><span class="stat-label">places réservées</span></li>
+          <li><span class="stat-value" data-a="restantes">–</span><span class="stat-label">places restantes</span></li>
+          <li><span class="stat-value" data-a="capacite">–</span><span class="stat-label">places dans le bus</span></li>
+          <li><span class="stat-value" data-a="nb">–</span><span class="stat-label">réservations</span></li>
+        </ul>
+
+        <div class="admin-grid">
+          <form class="form" data-admin-capacity novalidate>
+            <h2>Capacité du bus</h2>
+            <div class="field">
+              <label for="a-cap">Nombre de places</label>
+              <input id="a-cap" name="capacite" type="number" inputmode="numeric" min="1" max="500" required aria-describedby="a-cap-hint">
+              <p class="field-hint" id="a-cap-hint">Elle ne peut pas être inférieure aux places déjà réservées.</p>
+            </div>
+            <button class="button" type="submit">Enregistrer la capacité</button>
+          </form>
+
+          <div class="form">
+            <h2>Par point de ramassage</h2>
+            <ul class="admin-stops" data-admin-stops></ul>
+          </div>
+        </div>
+
+        <div class="admin-toolbar">
+          <h2>Liste des réservations</h2>
+          <div class="admin-actions">
+            <button class="button button-outline" type="button" data-admin-refresh>Actualiser</button>
+            <button class="button button-outline" type="button" data-admin-export>Télécharger en CSV</button>
+          </div>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr><th scope="col">Date</th><th scope="col">N°</th><th scope="col">Nom</th><th scope="col">Places</th><th scope="col">Ramassage</th><th scope="col">Téléphone</th><th scope="col">E-mail</th><th scope="col"><span class="sr-only">Actions</span></th></tr>
+            </thead>
+            <tbody data-admin-rows></tbody>
+          </table>
+        </div>
+        <p class="admin-empty" data-admin-empty hidden>Aucune réservation pour l'instant.</p>
+
+        <details class="admin-danger">
+          <summary>Après l'événement : effacer toutes les réservations</summary>
+          <p>Les données personnelles ne doivent pas être gardées plus longtemps que nécessaire. Téléchargez d'abord la liste si vous en avez besoin. Pour confirmer, tapez EFFACER.</p>
+          <form data-admin-purge novalidate>
+            <div class="field">
+              <label for="a-purge">Confirmation</label>
+              <input id="a-purge" name="confirmation" type="text" autocomplete="off">
+            </div>
+            <button class="button" type="submit">Effacer toutes les réservations</button>
+          </form>
+        </details>
+
+        <button class="admin-logout" type="button" data-admin-logout>Se déconnecter</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="admin-navette.js" defer></script>
+</body>
+</html>
