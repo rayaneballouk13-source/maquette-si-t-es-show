@@ -149,7 +149,7 @@
 
           <article class="event-card">
             <a class="poster-link" href="#evenements" data-open-navette tabindex="-1" aria-hidden="true">
-              <img src="assets/img/navette-du-rire.webp" width="720" height="1019" loading="lazy" decoding="async" alt="">
+              <img src="assets/img/navette-du-rire-2027.webp" width="720" height="1019" loading="lazy" decoding="async" alt="">
             </a>
             <div class="event-body">
               <h3>La Navette du rire</h3>
@@ -168,7 +168,7 @@
     <!-- RÉSERVATION DE LA NAVETTE DU RIRE (ouverte par les boutons data-open-navette) -->
     <dialog class="booking" id="navette-dialog" aria-labelledby="navette-title">
       <div class="booking-head">
-        <img src="assets/img/navette-du-rire.webp" width="720" height="1019" alt="" loading="lazy" decoding="async">
+        <img src="assets/img/navette-du-rire-2027.webp" width="720" height="1019" alt="" loading="lazy" decoding="async">
         <div>
           <h2 id="navette-title">Je réserve ma place</h2>
           <p>La Navette du rire : spectacle d'humour gratuit, ramassage en bus.</p>
@@ -185,16 +185,8 @@
 
       <form class="form booking-form" data-booking action="/api/navette" method="post" novalidate>
         <div class="form-fields">
-          <div class="field">
-            <label for="n-places">Nombre de places</label>
-            <div class="stepper">
-              <button type="button" data-step="-1" aria-label="Une place de moins">−</button>
-              <input id="n-places" name="places" type="number" inputmode="numeric" min="1" max="10" value="1" required aria-describedby="n-places-hint n-places-err">
-              <button type="button" data-step="1" aria-label="Une place de plus">+</button>
-            </div>
-            <p class="field-hint" id="n-places-hint">De 1 à <span data-max-places>10</span> places par réservation.</p>
-            <p class="field-error" id="n-places-err"></p>
-          </div>
+          <input type="hidden" name="places" value="1">
+          <p class="booking-rule">Une seule place par personne : chaque passager réserve avec sa propre adresse e-mail et son propre numéro de téléphone.</p>
           <div class="form-row">
             <div class="field">
               <label for="n-prenom">Prénom</label>

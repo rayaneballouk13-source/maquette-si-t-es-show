@@ -2,6 +2,8 @@
    SI T'ES SHOW — logique des réservations de la Navette du rire
 
    Capacité : 55 places par défaut (provisoire).
+   Une seule place par personne : une adresse e-mail ou un numéro
+   de téléphone ne peut servir qu'à une réservation.
    Pour la changer : page admin-navette.html (recommandé),
    ou variable d'environnement NAVETTE_CAPACITE.
 
@@ -15,7 +17,7 @@
 const { redis, pipeline } = require('./_store');
 
 const CAPACITE_PAR_DEFAUT = 55;
-const MAX_PAR_RESERVATION = 10;
+const MAX_PAR_RESERVATION = 1;
 const CAPACITE_MAX = 500;
 const ARRETS = ['Saint-Waast', 'Dutemple', 'Faubourg de Lille'];
 
@@ -23,8 +25,20 @@ const K = {
   capacite: 'navette:capacite',
   places: 'navette:places',
   reservations: 'navette:reservations',
-  envoi: (id) => `navette:envoi:${id}`
+  envoi: (id) => `navette:envoi:${id}`,
+  email: (v) => `navette:email:${v}`,
+  tel: (v) => `navette:tel:${v}`
 };
+
+// Formes normalisées : « Jean@Mail.fr » = « jean@mail.fr », « 06 12-34… » = « 0612… »
+const normEmail = (v) => String(v || '').trim().toLowerCase();
+const normTel = (v) => {
+  let d = String(v || '').replace(/[^\d+]/g, '');
+  if (d.startsWith('+33')) d = '0' + d.slice(3);
+  else if (d.startsWith('0033')) d = '0' + d.slice(4);
+  return d.replace(/\+/g, '');
+};
+const identityKeys = (r) => [K.email(normEmail(r.email)), K.tel(normTel(r.telephone))];
 
 const toInt = (v, fallback = 0) => {
   const n = parseInt(v, 10);
@@ -55,20 +69,32 @@ async function reserve(id, data) {
     return { ok: Boolean(existing), code: 'deja', status: await getStatus(), reservation: existing ? JSON.parse(existing) : null };
   }
 
-  // 2. Réserve les places de façon atomique, puis vérifie la capacité
+  // 2. Une place par personne : l'e-mail et le téléphone sont réservés de façon atomique (NX)
+  const [emailKey, telKey] = identityKeys(data);
+  const [emailFree, telFree] = await pipeline([['SET', emailKey, id, 'NX'], ['SET', telKey, id, 'NX']]);
+  if (emailFree !== 'OK' || telFree !== 'OK') {
+    const undo = [['DEL', K.envoi(id)]];
+    if (emailFree === 'OK') undo.push(['DEL', emailKey]);
+    if (telFree === 'OK') undo.push(['DEL', telKey]);
+    await pipeline(undo);
+    return { ok: false, code: 'existe', champ: emailFree !== 'OK' ? 'email' : 'telephone', status: await getStatus() };
+  }
+  const releaseIdentity = [['DEL', emailKey], ['DEL', telKey]];
+
+  // 3. Réserve les places de façon atomique, puis vérifie la capacité
   const { capacite } = await getStatus();
   const total = toInt(await redis('INCRBY', K.places, n));
   if (total > capacite) {
-    await pipeline([['DECRBY', K.places, n], ['DEL', K.envoi(id)]]);
+    await pipeline([['DECRBY', K.places, n], ['DEL', K.envoi(id)], ...releaseIdentity]);
     return { ok: false, code: 'complet', status: await getStatus() };
   }
 
-  // 3. Enregistre le détail ; en cas d'échec, on libère les places
+  // 4. Enregistre le détail ; en cas d'échec, on libère les places
   const reservation = { id, ...data, creeLe: new Date().toISOString() };
   try {
     await redis('HSET', K.reservations, id, JSON.stringify(reservation));
   } catch (err) {
-    await pipeline([['DECRBY', K.places, n], ['DEL', K.envoi(id)]]).catch(() => {});
+    await pipeline([['DECRBY', K.places, n], ['DEL', K.envoi(id)], ...releaseIdentity]).catch(() => {});
     throw err;
   }
   return { ok: true, status: await getStatus(), reservation };
@@ -96,8 +122,10 @@ async function cancel(id) {
   if (!existing) return false;
   const removed = toInt(await redis('HDEL', K.reservations, id));
   if (removed !== 1) return false; // déjà annulée par un autre appel
-  const places = toInt(JSON.parse(existing).places);
-  if (places > 0) await redis('DECRBY', K.places, places);
+  const r = JSON.parse(existing);
+  const places = toInt(r.places);
+  // Libère les places et permet à la personne de réserver de nouveau
+  await pipeline([...(places > 0 ? [['DECRBY', K.places, places]] : []), ...identityKeys(r).map((k) => ['DEL', k])]);
   return true;
 }
 
@@ -113,8 +141,11 @@ async function setCapacity(value) {
 
 /* Efface toutes les réservations (après l'événement, pour le RGPD) */
 async function purge() {
-  const ids = (await list()).map((r) => r.id);
-  await pipeline([['DEL', K.reservations], ['SET', K.places, '0'], ...ids.map((id) => ['DEL', K.envoi(id)])]);
+  const all = await list();
+  await pipeline([
+    ['DEL', K.reservations], ['SET', K.places, '0'],
+    ...all.flatMap((r) => [['DEL', K.envoi(r.id)], ...identityKeys(r).map((k) => ['DEL', k])])
+  ]);
   return getStatus();
 }
 

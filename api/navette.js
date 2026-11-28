@@ -12,13 +12,13 @@ const schema = {
     { name: 'email', label: 'E-mail', type: 'email', required: true, max: 160 },
     { name: 'telephone', label: 'Téléphone', type: 'tel', required: true, max: 25 },
     { name: 'arret', label: 'Point de ramassage', required: true, options: navette.ARRETS },
-    { name: 'places', label: 'Nombre de places', required: true, max: 2 },
+    { name: 'places', label: 'Nombre de places', max: 2 },
     { name: 'consentement', label: 'Consentement au traitement des données', type: 'checkbox', required: true }
   ],
   check(clean, errors) {
     const n = Number(clean.places);
     if (!errors.places && !(Number.isInteger(n) && n >= 1 && n <= navette.MAX_PAR_RESERVATION)) {
-      errors.places = `Choisissez entre 1 et ${navette.MAX_PAR_RESERVATION} places.`;
+      errors.places = navette.MAX_PAR_RESERVATION === 1 ? 'Une seule place par personne.' : `Choisissez entre 1 et ${navette.MAX_PAR_RESERVATION} places.`;
     }
   }
 };
@@ -58,7 +58,8 @@ module.exports = async function handler(req, res) {
     return res.status(429).json({ message: 'Trop de réservations envoyées en peu de temps. Réessayez dans quelques minutes.' });
   }
 
-  if (typeof body.places === 'number') body.places = String(body.places);
+  // Une seule place par personne
+  body.places = String(body.places ?? '1');
   const { errors, clean } = validate(schema, body);
   if (!ID_RE.test(String(body._id || ''))) errors._id = 'Identifiant de réservation invalide.';
   if (Object.keys(errors).length) {
@@ -87,6 +88,12 @@ module.exports = async function handler(req, res) {
         ? 'La navette est complète : il ne reste plus aucune place.'
         : `Il ne reste que ${restantes} place${restantes > 1 ? 's' : ''}. Réduisez le nombre de places demandées.`;
       return res.status(409).json({ message, status: result.status, errors: restantes ? { places: message } : undefined });
+    }
+    if (result.code === 'existe') {
+      const message = result.champ === 'email'
+        ? 'Une place est déjà réservée avec cette adresse e-mail : une seule place par personne.'
+        : 'Une place est déjà réservée avec ce numéro de téléphone : une seule place par personne.';
+      return res.status(409).json({ message, status: result.status, errors: { [result.champ]: message } });
     }
     return res.status(409).json({ message: 'Cette réservation est déjà en cours d’envoi. Patientez quelques secondes.', status: result.status });
   }

@@ -37,7 +37,7 @@ Protection anti-spam : champ piège invisible, délai minimal de remplissage, li
 
 ## Réservations de la Navette du rire
 
-Bouton « Je réserve ma place » sur l'affiche → fenêtre de réservation (1 à 10 places, places restantes affichées, blocage automatique quand c'est complet).
+Bouton « Je réserve ma place » sur l'affiche → fenêtre de réservation (une seule place par personne, contrôlée par e-mail et téléphone ; places restantes affichées, blocage automatique quand c'est complet).
 Les réservations sont enregistrées dans une base **Upstash Redis** ; le compteur de places est atomique, donc aucune surréservation possible, même avec des envois simultanés.
 
 Activation (une seule fois) :

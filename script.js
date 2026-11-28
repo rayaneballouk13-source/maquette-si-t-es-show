@@ -269,6 +269,7 @@
     const maxAllowed = () => (state ? Math.max(0, Math.min(state.maxParReservation || 10, state.restantes)) : 10);
 
     const syncStepper = () => {
+      if (!stepButtons.length || placesInput.type === 'hidden') return; // une place par personne : pas de sélecteur
       const max = maxAllowed();
       let n = parseInt(placesInput.value, 10);
       if (!Number.isFinite(n)) n = 1;
@@ -377,7 +378,7 @@
       let firstInvalid = null;
       fields.forEach((el) => {
         let msg = errorFor(el);
-        if (el === placesInput && (msg || parseInt(el.value, 10) > maxAllowed())) {
+        if (el === placesInput && el.type !== 'hidden' && (msg || parseInt(el.value, 10) > maxAllowed())) {
           msg = `Choisissez entre 1 et ${Math.max(maxAllowed(), 1)} places.`;
         }
         showError(el, msg);
